@@ -1,23 +1,37 @@
 import React from 'react'
-// src/components/RegistrationForm.jsx
 import React, { useState } from 'react';
 
 const RegistrationForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!username || !email || !password) {
-      setError('All fields are required');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+    // Reset errors
+    setErrors({});
+    
+    // Basic validation
+    const newErrors = {};
+    if (!email) {
+      newErrors.email = 'Email is required';
+    }
+    if (!password) {
+      newErrors.password = 'Password is required';
+    }
+    
+    // If there are errors, set them and return
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
-    setError('');
-    // Simulate API call
-    console.log({ username, email, password });
-    // Reset form fields
+
+    // Submit logic here (e.g., API call)
+    console.log('Form submitted:', { username, email, password });
+    
+    // Clear form fields
     setUsername('');
     setEmail('');
     setPassword('');
@@ -31,6 +45,7 @@ const RegistrationForm = () => {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
         />
       </div>
       <div>
@@ -39,7 +54,9 @@ const RegistrationForm = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
         />
+        {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
       </div>
       <div>
         <label>Password:</label>
@@ -47,13 +64,13 @@ const RegistrationForm = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
         />
+        {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
       </div>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <button type="submit">Register</button>
     </form>
   );
 };
 
 export default RegistrationForm;
-
