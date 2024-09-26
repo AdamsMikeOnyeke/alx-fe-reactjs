@@ -1,18 +1,35 @@
 import React from 'react'
-import { create } from 'zustand';
+import create from 'zustand';
 
 const useRecipeStore = create((set) => ({
   recipes: [],
+  searchTerm: '',
+  filteredRecipes: [],
+  
+  // Action to set the search term
+  setSearchTerm: (term) => {
+    set({ searchTerm: term });
+    set((state) => ({
+      filteredRecipes: state.recipes.filter((recipe) =>
+        recipe.title.toLowerCase().includes(term.toLowerCase())
+      ),
+    }));
+  },
+
+  // Action to add recipes (assuming you have this already)
   addRecipe: (newRecipe) => set((state) => ({
-    recipes: [...state.recipes, newRecipe]
+    recipes: [...state.recipes, newRecipe],
+    filteredRecipes: [...state.recipes, newRecipe], // Keeps filteredRecipes updated
   })),
-  deleteRecipe: (recipeId) => set((state) => ({
-    recipes: state.recipes.filter((recipe) => recipe.id !== recipeId)
+
+  // Action to initialize the list of recipes
+  setRecipes: (recipes) => set({ recipes, filteredRecipes: recipes }),
+
+  // Action to delete recipes
+  deleteRecipe: (id) => set((state) => ({
+    recipes: state.recipes.filter((recipe) => recipe.id !== id),
+    filteredRecipes: state.filteredRecipes.filter((recipe) => recipe.id !== id),
   })),
-  updateRecipe: (updatedRecipe) => set((state) => ({
-    recipes: state.recipes.map((recipe) =>
-      recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-    )
-  })),
-  setRecipes: (recipes) => set({ recipes }),
 }));
+
+export default useRecipeStore;

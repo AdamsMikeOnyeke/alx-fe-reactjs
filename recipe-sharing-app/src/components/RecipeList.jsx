@@ -7,16 +7,22 @@ import React from 'react'
    const recipes = useRecipeStore(state => state.recipes);
 
    return (
-     <div>
-       {recipes.map(recipe => (
-         <div key={recipe.id}>
-           <h3>{recipe.title}</h3>
-           <p>{recipe.description}</p>
-         </div>
-       ))}
-     </div>
-   );
- };
+    <div>
+      {filteredRecipes.length > 0 ? (
+        filteredRecipes.map((recipe) => (
+          <div key={recipe.id}>
+            <h3>{recipe.title}</h3>
+            <p>{recipe.description}</p>
+            {/* Link to view details of each recipe */}
+            <Link to={`/recipe/${recipe.id}`}>View Recipe</Link>
+          </div>
+        ))
+      ) : (
+        <p>No recipes found.</p>
+      )}
+    </div>
+  );
+};
 
  // AddRecipeForm component
  import { useState } from 'react';
