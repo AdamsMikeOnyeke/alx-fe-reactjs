@@ -7,6 +7,8 @@ import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
         <SearchBar />
         <Routes>
           <Route path="/" element={<div><AddRecipeForm /><RecipeList /></div>} />
+          <Route path="/favorites" element={<FavoritesList />} />
+          <Route path="/recommendations" element={<RecommendationsList />} />
           <Route path="/recipe/:id" element={<RecipeDetailsWrapper />} />
         </Routes>
       </div>
