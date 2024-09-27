@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import NotFound from './components/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
+import BlogPost from './components/BlogPost';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
 
-        <Route path="/blog/:postId" element={<BlogPost />} />
+        <Route path="/blog/:Id" element={<BlogPost />} />
 
         <Route
           path="/profile/*"
