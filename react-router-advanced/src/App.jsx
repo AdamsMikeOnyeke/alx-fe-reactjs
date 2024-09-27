@@ -11,26 +11,25 @@ import ProtectedRoute from './components/ProtectedRoute';
 import BlogPost from './components/BlogPost';
 
 function App() {
+  const isAuthenticated = true; // Simulated authentication status
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-
-        <Route path="/profile/*" element={<Profile />} />
-
-        <Route path="*" element={<NotFound />} />
-
-        <Route path="/blog/:Id" element={<BlogPost />} />
-
-        <Route
-          path="/profile/*"
+        
+        <Route 
+          path="/profile/*" 
           element={
             <ProtectedRoute isAuth={isAuthenticated}>
               <Profile />
             </ProtectedRoute>
-          }
+          } 
         />
+        
+        <Route path="/blog/:id" element={<BlogPost />} /> {/* Ensure this route exists */}
 
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
