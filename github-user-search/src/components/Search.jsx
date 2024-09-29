@@ -46,7 +46,7 @@ const Search = () => {
         </div>
       )}
       {!user && !loading && !error && ( // Optionally show a message if no user is found and nothing is loading
-        <p>Looks like we can’t find the user</p>
+        <p>Looks like we cant find the user</p>
       )}
     </div>
   );
