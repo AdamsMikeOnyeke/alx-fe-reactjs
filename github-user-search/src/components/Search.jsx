@@ -25,3 +25,4 @@ const Search = ({ onSearch }) => {
 
 export default Search;
 
+
