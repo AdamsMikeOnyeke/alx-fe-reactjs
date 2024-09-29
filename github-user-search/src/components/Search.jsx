@@ -11,13 +11,13 @@ const Search = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setUser(null);  // Reset user data on new search
+    setUser(null); // Reset user data on new search
 
     try {
       const userData = await fetchUserData(username);
-      setUser(userData);  // Set user data on successful fetch
+      setUser(userData); // Set user data on successful fetch
     } catch (err) {
-      setError('Looks like we can’t find the user');  // Handle error
+      setError('Looks like we can’t find the user'); // Set error message
     } finally {
       setLoading(false);
     }
@@ -38,16 +38,18 @@ const Search = () => {
 
       {loading && <p>Loading...</p>} {/* Show loading message */}
       {error && <p>{error}</p>} {/* Show error message */}
-      {user && (  // Display user info if fetched successfully
+      {user && ( // Display user info if fetched successfully
         <div>
           <img src={user.avatar_url} alt={user.login} width={100} /> {/* User's avatar */}
           <h2>{user.name || user.login}</h2> {/* User's name or login */}
           <a href={user.html_url} target="_blank" rel="noopener noreferrer">View Profile</a>
         </div>
       )}
+      {!user && !loading && !error && ( // Optionally show a message if no user is found and nothing is loading
+        <p>Looks like we can’t find the user</p>
+      )}
     </div>
   );
 };
 
 export default Search;
-
