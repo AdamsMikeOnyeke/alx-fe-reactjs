@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div>
-      <h1>Github User Search</h1>
+      <h1>github-user-search</h1>
     </div>
   );
 }
